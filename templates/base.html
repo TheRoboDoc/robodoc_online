@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="theme-color" content="#1e74fd">
+
+        <title>{{ title }}</title>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+        <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon">
+        <link rel="apple-touch-icon" sizes="192x192" href="{{ url_for('static', filename='img/icon-192.png') }}">
+
+        <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+        <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    </head>
+
+    <body>
+        <nav>
+            <div style="margin: 0 0 1.5rem 0;">
+                <a href="/" style="display: block;">
+                    <img src="{{ url_for('static', filename='img/RoboAscii.png') }}"
+                         alt="RoboDoc Logo"
+                         style="height: 128px; display: block; margin: 0 auto 0 0;" />
+                </a>
+            </div>
+
+            <ul>
+            {% for name, path, depth in nav %}
+                <li style="margin-left: {{ depth * 1.2 }}em;">
+                    <a href="{{ path }}">{{ name }}</a>
+                </li>
+            {% endfor %}
+            </ul>
+        </nav>
+
+        <main id="main-content">
+            <div id="boot-sequence">
+                <span id="boot-line">loading in<span class="blink">_</span></span>
+            </div>
+
+            <div id="typed-container"></div>
+
+            <div id="raw-content" style="display: none;">
+                {{ content | safe }}
+            </div>
+        </main>
+    </body>
+</html>
